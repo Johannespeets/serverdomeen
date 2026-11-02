@@ -1,0 +1,119 @@
+﻿<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kooli ülesanne</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #172033;
+      background: #f4f6fb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    main {
+      width: min(100%, 900px);
+      padding: clamp(24px, 5vw, 44px);
+      background: #fff;
+      border: 1px solid #e4e8f0;
+      border-radius: 20px;
+      box-shadow: 0 16px 48px #26345b12;
+    }
+    h1 { margin: 0 0 10px; font-size: clamp(1.8rem, 5vw, 2.5rem); }
+    p { margin: 0 0 24px; color: #5d6679; line-height: 1.6; }
+    label { display: block; margin-bottom: 9px; font-weight: 650; }
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 280px;
+      resize: vertical;
+      padding: 16px;
+      border: 1px solid #cbd3e1;
+      border-radius: 12px;
+      color: inherit;
+      background: #fff;
+      font: inherit;
+      line-height: 1.6;
+    }
+    textarea:focus { outline: 3px solid #5577ee33; border-color: #5577ee; }
+    .hint { margin: 10px 0 0; font-size: .9rem; }
+    .prices { margin: 30px 0; padding: 22px; border: 1px solid #e4e8f0; border-radius: 16px; background: #fafbff; }
+    .prices h2 { margin: 0 0 6px; font-size: 1.35rem; }
+    .prices-intro, .price-note { margin: 0 0 18px; font-size: .92rem; }
+    .bar-row { display: grid; grid-template-columns: minmax(145px, 190px) 1fr 64px; gap: 12px; align-items: center; margin: 16px 0; }
+    .provider { font-weight: 650; }
+    .provider small { display: block; color: #687286; font-size: .8rem; font-weight: 400; }
+    .track { height: 26px; overflow: hidden; border-radius: 7px; background: #e9edf5; }
+    .bar { height: 100%; min-width: 10px; border-radius: inherit; background: #5577ee; }
+    .bar.do { width: 61.6%; background: #2684ff; }
+    .bar.aws { width: 77%; background: #f0a43a; }
+    .bar.hetzner { width: 100%; background: #d84b45; }
+    .price { text-align: right; font-weight: 700; white-space: nowrap; }
+    .price-note { margin: 18px 0 0; color: #5d6679; line-height: 1.55; }
+    .sources { margin: 12px 0 0; font-size: .85rem; }
+    .sources a { color: #355bc4; }
+    @media (max-width: 560px) {
+      .prices { padding: 17px; }
+      .bar-row { grid-template-columns: 1fr 58px; gap: 6px 10px; }
+      .provider { grid-column: 1 / -1; }
+      .track { grid-column: 1; grid-row: 2; }
+      .price { grid-column: 2; grid-row: 2; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Kooli ülesanne</h1>
+    <p>Kirjuta oma ülesande vastus siia.</p>
+    <section class="prices" aria-labelledby="hindade-pealkiri">
+      <h2 id="hindade-pealkiri">VPS-serverite hinnavõrdlus</h2>
+      <p class="prices-intro">Algtaseme Linuxi virtuaalserveri kuuhind (USD).</p>
+      <div class="bar-row">
+        <div class="provider">DigitalOcean<small>Basic · 1 vCPU · 512 MB RAM</small></div>
+        <div class="track" role="img" aria-label="DigitalOceani hind 4 dollarit kuus"><div class="bar do"></div></div>
+        <div class="price">$4</div>
+      </div>
+      <div class="bar-row">
+        <div class="provider">Amazon Lightsail<small>Linux · 2 vCPU · 512 MB RAM</small></div>
+        <div class="track" role="img" aria-label="Amazon Lightsaili hind 5 dollarit kuus"><div class="bar aws"></div></div>
+        <div class="price">$5</div>
+      </div>
+      <div class="bar-row">
+        <div class="provider">Hetzner Cloud<small>CX23 · 2 vCPU · 4 GB RAM</small></div>
+        <div class="track" role="img" aria-label="Hetzner Cloudi hind 6 dollarit ja 49 senti kuus"><div class="bar hetzner"></div></div>
+        <div class="price">$6.49</div>
+      </div>
+      <p class="price-note">Võrdlus näitab teenusepakkujate algtaseme pakette, mille jõudlus ja maht erinevad. Hetzneri hind on käibemaksuta; teised tasud, maksud ja piirkonnapõhised erinevused võivad lõpphinda muuta. Hinnad kontrollitud 8.10.2026.</p>
+      <p class="sources">Allikad: <a href="https://www.digitalocean.com/pricing/droplets" target="_blank" rel="noopener">DigitalOcean</a> · <a href="https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-bundles.html" target="_blank" rel="noopener">Amazon Lightsail</a> · <a href="https://docs.hetzner.com/general/infrastructure-and-availability/price-adjustment/" target="_blank" rel="noopener">Hetzner Cloud</a></p>
+    </section>
+    <label for="vastus">Sinu tekst</label>
+    <textarea id="vastus" name="vastus" placeholder="Alusta kirjutamist…"></textarea>
+    <p class="hint" id="salvestuse-olek" aria-live="polite">Tekst salvestatakse automaatselt sellesse brauserisse.</p>
+  </main>
+  <script>
+    const tekstikast = document.querySelector("#vastus");
+    const olek = document.querySelector("#salvestuse-olek");
+    const salvestuseVoti = "kooli-ulesanne-tekst";
+
+    try {
+      tekstikast.value = localStorage.getItem(salvestuseVoti) ?? "";
+      tekstikast.addEventListener("input", () => {
+        localStorage.setItem(salvestuseVoti, tekstikast.value);
+        olek.textContent = "Salvestatud automaatselt.";
+      });
+    } catch {
+      olek.textContent = "Automaatne salvestamine pole selles brauseris saadaval.";
+    }
+  </script>
+</body>
+</html>
+
+
